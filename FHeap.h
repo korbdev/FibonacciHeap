@@ -20,7 +20,8 @@ public:
 	FHeap():min(0L), size(0){}
 	FibNode<T>* insert(int key, T content);
 	static FibNode<T>* mergeLists(FibNode<T>* a, FibNode<T>* b);
-	static FibNode<T>* link(FibNode<T>* a, FibNode<T>* b);
+	FibNode<T>* link(FibNode<T>* a, FibNode<T>* b);
+	void cut(FibNode<T>* node);
 	FibNode<T>* getMin();
 	int getSize();
 	void print();
@@ -51,6 +52,11 @@ FibNode<T>* FHeap<T>::insert(int key, T content){
 	min = mergeLists(min, node);
 	size++;
 	return node;
+}
+
+template <class T>
+void FHeap<T>::cut(FibNode<T>* node){
+
 }
 
 template <class T>
@@ -94,6 +100,7 @@ FibNode<T>* FHeap<T>::link(FibNode<T>* a, FibNode<T>* b){
 	}
 	child->parent = parent;
 	parent->rank++;
+	size--;
 	parent->child = mergeLists(parent->child, child);
 	return parent;
 }

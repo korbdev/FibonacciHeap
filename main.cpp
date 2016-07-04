@@ -21,7 +21,7 @@ int main(){
 	fh2.insert(6, 20);
 	fh2.print();
 
-	FHeap<int>::link(fh.getMin(), fh2.getMin());
+	fh.link(fh.getMin(), fh2.getMin());
 	fh.print();
 	return 0;
 }
