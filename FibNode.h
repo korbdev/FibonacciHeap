@@ -24,6 +24,9 @@ private:
 	FibNode *parent, *child, *left,*right;
 public:
 	FibNode(int key, T content):key(key),content(content),rank(0),mark(false),parent(0L),child(0L),left(this),right(this){}
+	FibNode():key(0),content(0),rank(0),mark(false),parent(0L),child(0L),left(this),right(this){}
+	int getKey(){return key;}
+	T getContent(){return content;}
 };
 
 
