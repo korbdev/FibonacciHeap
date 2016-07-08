@@ -45,6 +45,8 @@ int main(){
 	fh.insert(2, 22);
 	fh.deleteMin(&node);
 	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+	fh.deleteMin(&node);
+
 	/*for(int i = 0; i < 240*240; i++){
 		fh.insert(i, i);
 	}

@@ -152,6 +152,14 @@ FibNode<T>* FHeap<T>::link(FibNode<T>* a, FibNode<T>* b){
 		parent = a;
 		child = b;
 	}
+	else if(a == min){
+		parent = a;
+		child = b;
+	}
+	else if(b == min){
+		parent = b;
+		child = a;
+	}
 	else{
 		parent = b;
 		child = a;
