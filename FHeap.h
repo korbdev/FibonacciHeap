@@ -29,7 +29,8 @@ public:
 	FibNode<T>* remove(FibNode<T>* node);
 	FibNode<T>* getMin();
 	int getSize();
-	void deleteMin(FibNode<T> *result);
+	bool deleteMin(FibNode<T> *result);
+	bool isEmpty();
 	void consolidate();
 	int maxRank();
 	void print();
@@ -46,10 +47,15 @@ int FHeap<T>::getSize(){
 }
 
 template <class T>
+bool FHeap<T>::isEmpty(){
+	return size == 0 ? true:false;
+}
+
+template <class T>
 void FHeap<T>::print(){
 	FibNode<T> *node = min;
 	for(int i = 0; i < size; i++){
-		std::cout << node->key << std::endl;
+		std::cout << node->key << " Content " << node->content << std::endl;
 		node = node->right;
 	}
 }
@@ -90,23 +96,6 @@ void FHeap<T>::cascadingCut(FibNode<T>* node){
 
 template <class T>
 FibNode<T>* FHeap<T>::remove(FibNode<T>* node){
-	/*if(node->parent != 0L){
-		//add check for onlychild
-		if(node->parent->rank == 1){
-			//remove parents child, when only child
-			node->parent->child = 0L;
-		}
-		else{
-			//check if node to delete is pointer in child list of parent
-			if(node->parent->child == node){
-				node->parent->child = node->left;
-			}
-		}
-		node->parent->rank--;
-	}
-	else{
-		size--;
-	}*/
 	size--;
 	FibNode<T>* n = node->child;
 	for(int i = 0; i<node->rank; i++){
@@ -180,45 +169,36 @@ FibNode<T>* FHeap<T>::link(FibNode<T>* a, FibNode<T>* b){
 }
 template <class T>
 int FHeap<T>::maxRank(){
-	return 2*log(size);
+	//double test = 2*log2(size);
+	return 15;
+	return 2*(log(size)/log(1.618f));
 }
 
 template <class T>
 void FHeap<T>::consolidate(){
 	int rankSize = maxRank()+1;
 	std::vector<FibNode<T>*> rankVec(rankSize);
-	//rankVec.reserve(maxRank()+1);
-
-	int initial_size = size;
 
 	FibNode<T>* node = min;
-	FibNode<T>* last;
-	int counter = 0;
-	do{
-		std::cout << "Node " << node->key << std::endl;
-		last = node;
-		while(rankVec[node->rank] ){//&& rankVec[node->rank] != node){
-			std::cout << "Key " << rankVec[node->rank]->key << "Rank " << node->rank << std::endl;
+	FibNode<T>* next;
+	int initial_size = size;
+	for(int i = 0; i < initial_size; i++){
+		next = node->left;
+		//std::cout << "Node " << node->key << ", " << node->content << " Rank " << node->rank << " MaxRank " << rankSize << std::endl;
+		while(rankVec[node->rank] != 0){//&& rankVec[node->rank] != node){
 			FibNode<T>* node2 = rankVec[node->rank];
 			node = link(node, node2);
 			rankVec[node->rank-1] = 0L;
-			if(node->key < min->key){
-				min = node;
-			}
 		}
 		rankVec[node->rank] = node;
-		node = node->left;
-		std::cout << "Counter " << counter << "Size " << initial_size << std::endl;
-		counter++;
-	}while(counter < initial_size);
+		node = next;
+	}
 }
 
 template <class T>
-void FHeap<T>::deleteMin(FibNode<T> *result){
-	if(min){
+bool FHeap<T>::deleteMin(FibNode<T> *result){
+	if(size > 0){
 		FibNode<T>*backup = this->remove(min);
-		this->consolidate();
-
 		FibNode<T>* node = min;
 		for(int i = 0; i < size; i++){
 			node = node->left;
@@ -226,13 +206,18 @@ void FHeap<T>::deleteMin(FibNode<T> *result){
 				min = node;
 			}
 		}
+
+		if(size > 1){
+			this->consolidate();
+		}
+
 		result->key = backup->key;
 		result->content = backup->content;
 		delete backup;
-		return;
+		return true;
 	}
 	else{
-		return;
+		return false;
 	}
 }
 

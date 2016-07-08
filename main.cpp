@@ -9,45 +9,91 @@
 #include "FHeap.h"
 
 int main(){
+
 	FHeap<int> fh;
-	FibNode<int> *n1, *n2, *n3, *n4, *n5, *n6;
-	std::cout << "Insert" << std::endl;
-	n1 = fh.insert(1, 10);
-	n2 = fh.insert(7, 1);
-	n3 = fh.insert(3, 20);
-	n4 = fh.insert(7, 2);
-	n5 = fh.insert(5, 20);
-	n6 = fh.insert(6, 20);
-	n6 = fh.insert(60, 20);
+
+	fh.insert(1, 5);
+	fh.insert(1, 6);
+	fh.insert(1, 7);
+	fh.insert(1, 10);
+	fh.insert(1, 12);
+	fh.insert(1, 15);
+	fh.insert(1, 16);
+	fh.insert(1, 17);
+
+	FibNode<int> node;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+
+	fh.insert(2, 0);
+	fh.insert(2, 1);
+
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+
+	fh.insert(2, 2);
+
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+
+	fh.insert(2, 20);
+	fh.insert(2, 21);
+
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+
+	fh.insert(2, 22);
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+	/*for(int i = 0; i < 240*240; i++){
+		fh.insert(i, i);
+	}
+
 	fh.print();
 
-	//fh.consolidate();
-	//fh.print();
+	FibNode<int> node;
+	for(int i = 0; i < 240*240; i++){
+		if(i == 3){
+			std::cout << "Stop"<< std::endl;
+		}
+		//if(!fh.isEmpty()){
+			fh.deleteMin(&node);
+			std::cout << "Min " << node.getKey() << " Content " << node.getContent() << std::endl;
+		//}
+	}*/
 
-	FibNode<int> min;
-	fh.deleteMin(&min);
-	std::cout << "Min " << min.getKey() << std::endl;
+
+	/*FibNode<int> node;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
 
-	fh.deleteMin(&min);
-	std::cout << "Min "  << min.getKey() << std::endl;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
 
-	fh.deleteMin(&min);
-	std::cout << "Min "  << min.getKey() << std::endl;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
 
-	fh.deleteMin(&min);
-	std::cout << "Min "  << min.getKey() << std::endl;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
 
-	fh.deleteMin(&min);
-	std::cout << "Min "  << min.getKey() << std::endl;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
 
-	fh.deleteMin(&min);
-	std::cout << "Min "  << min.getKey() << std::endl;
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
 	fh.print();
+
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
+	fh.print();
+	fh.deleteMin(&node);
+	std::cout << "Min " << node.getKey() << std::endl;
+	fh.print();*/
 
 	return 0;
 }
